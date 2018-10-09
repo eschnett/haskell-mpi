@@ -84,17 +84,20 @@ module Control.Parallel.MPI.Internal
 
 
      -- * Collective operations.
-     -- ** One-to-all.
+     -- ** Blocking operations.
+     -- *** One-to-all.
      bcast, scatter, scatterv,
-     -- ** All-to-one.
+     -- *** All-to-one.
      gather, gatherv, reduce,
-     -- ** All-to-all.
+     -- *** All-to-all.
      allgather, allgatherv,
      alltoall, alltoallv,
      allreduce,
      reduceScatterBlock,
      reduceScatter,
      barrier,
+     -- ** Non-blocking operations.
+     ibarrier,
 
      -- ** Reduction operations.
      Operation, maxOp, minOp, sumOp, prodOp, landOp, bandOp, lorOp, borOp, lxorOp, bxorOp,
@@ -509,6 +512,10 @@ started, otherwise this call could terminate with MPI error.
 -- | Blocks until all processes on the communicator call this function.
 -- This function corresponds to @MPI_Barrier@.
 {# fun unsafe Barrier as ^ {fromComm `Comm'} -> `()' checkError*- #}
+
+-- | Blocks until all processes on the communicator call this function.
+-- This function corresponds to @MPI_IBarrier@.
+{# fun unsafe Ibarrier as ^ {fromComm `Comm', alloca- `Request' peekRequest*} -> `()' checkError*- #}
 
 -- | Blocking test for the completion of a send of receive.
 -- See 'test' for a non-blocking variant.

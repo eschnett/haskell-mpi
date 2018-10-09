@@ -73,6 +73,7 @@ module Control.Parallel.MPI.Base
 
    -- * Synchronization.
    , barrier
+   , ibarrier
 
    -- * Groups.
    , Group
