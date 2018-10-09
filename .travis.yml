@@ -17,8 +17,10 @@ ghc:
 notifications:
   email: false
 
-# script:
-#   - cabal configure --enable-tests && cabal build && cabal test
+script:
+  - export C_INCLUDE_PATH=/usr/lib/openmpi/include
+  - export LIBRARY_PATH=/usr/lib/openmpi/lib
+  - cabal configure --enable-tests && cabal build && cabal test
 
 # install:
 #   - cabal install --only-dependencies --enable-tests
