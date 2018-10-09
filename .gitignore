@@ -26,3 +26,5 @@ docs/HCAR/Issue19/template.pdf
 /test/examples/clientserver/
 /sender.log
 /receiver.log
+/.stack-work
+stack.yaml
