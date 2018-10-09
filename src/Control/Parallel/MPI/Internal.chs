@@ -41,7 +41,7 @@ module Control.Parallel.MPI.Internal
      Info, infoNull, infoCreate, infoSet, infoDelete, infoGet,
 
      -- * Requests and statuses.
-     Request, Status (..), getCount, test, testPtr, cancel, cancelPtr, wait, waitPtr, waitall, requestNull,
+     Request, Status (..), getCount, iprobe, test, testPtr, cancel, cancelPtr, wait, waitPtr, waitall, requestNull,
 
      -- * Process management.
      -- ** Communicators.
@@ -131,7 +131,7 @@ peekBool :: (Integral a, Storable a) => Ptr a -> IO Bool
 peekBool  = liftM toBool . peek
 
 peekIntConv   :: (Storable a, Integral a, Integral b)
-	      => Ptr a -> IO b
+              => Ptr a -> IO b
 peekIntConv    = liftM fromIntegral . peek
 
 peekEnum :: (Enum a, Integral b, Storable b) => Ptr b -> IO a
@@ -430,10 +430,27 @@ universeSizeKey = unsafePerformIO (peekIntConv universeSize_)
 -- and serialize it back without losing information. Hence the use of Ptr Status.
 {# fun Probe as ^
            {fromRank `Rank', fromTag `Tag', fromComm `Comm', castPtr `Ptr Status'} -> `()' checkError*- #}
-{- probe :: Rank       -- ^ Rank of the sender.
+{- probe :: Rank    -- ^ Rank of the sender.
       -> Tag        -- ^ Tag of the sent message.
       -> Comm       -- ^ Communicator.
       -> IO Status  -- ^ Information about the incoming message (but not the content of the message). -}
+
+iprobe :: Comm -> Rank -> Tag -> IO (Maybe Status)
+iprobe comm rank tag =
+  alloca $ \flagPtr ->
+    alloca $ \statusPtr -> do
+      iprobe_ rank tag comm flagPtr statusPtr
+      flag <- peek flagPtr
+      if flag == 0 then return Nothing
+                   else do st <- peek statusPtr
+                           return (Just st)
+
+{# fun Iprobe as iprobe_
+           {fromRank `Rank', fromTag `Tag', fromComm `Comm', castPtr `Ptr CInt', castPtr `Ptr Status'} -> `()' checkError*- #}
+{- iprobe :: Rank           -- ^ Rank of the sender.
+      -> Tag                -- ^ Tag of the sent message.
+      -> Comm               -- ^ Communicator.
+      -> IO (Maybe Status)  -- ^ Information about the incoming message, if any (but not the content of the message). -}
 
 {-| Returns the number of entries received. (we count entries, each of
 type @Datatype@, not bytes.) The datatype argument should match the

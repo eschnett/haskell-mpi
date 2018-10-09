@@ -31,6 +31,7 @@ module Control.Parallel.MPI.Base
    , Request
    , Status (..)
    , getCount
+   , iprobe
    , test, testPtr
    , cancel, cancelPtr
    , wait, waitPtr
