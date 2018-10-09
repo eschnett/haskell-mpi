@@ -1,7 +1,14 @@
 language: haskell
 os:
   - linux
-  - osx
+  # - osx
+addons:
+  apt:
+    packages:
+      - c2hs
+      - libopenmpi-dev
+      - openmpi-bin
+    update: true
 ghc:
   # - "7.10"
   # - "8.0"

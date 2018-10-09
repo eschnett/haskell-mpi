@@ -76,7 +76,7 @@ homepage:            http://github.com/bjpop/haskell-mpi
 build-type:          Simple
 stability:           experimental
 tested-with:         GHC==6.10.4, GHC==6.12.1, GHC==7.4.1
-extra-source-files:  src/cbits/*.c src/include/*.h README.txt
+extra-source-files:  src/cbits/*.c src/include/*.h README.md
                      test/examples/clientserver/*.c
                      test/examples/clientserver/*.hs
                      test/examples/HaskellAndC/Makefile
