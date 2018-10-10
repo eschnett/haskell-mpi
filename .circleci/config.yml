@@ -16,6 +16,7 @@ jobs:
             echo 'extra-include-dirs: [/usr/lib/openmpi/include]'
             echo 'extra-lib-dirs: [/usr/lib/openmpi/lib]'
           } >> stack.yaml
+      - run: cat stack.yaml
       - run: stack build --test --only-dependencies --no-terminal --system-ghc
       - save_cache:
           key: cache
