@@ -11,7 +11,7 @@ jobs:
       - run: sudo apt update
       - run: sudo apt -y install libopenmpi-dev openmpi-bin
       - run: stack init
-      - run: stack build --test --only-dependencies --no-terminal --system-ghc
+      - run: env C_INCLUDE_PATH=/usr/lib/openmpi/include LIBRARY_PATH=/usr/lib/openmpi/lib stack build --test --only-dependencies --no-terminal --system-ghc
       - save_cache:
           key: cache
           paths:
