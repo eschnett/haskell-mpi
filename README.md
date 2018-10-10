@@ -3,6 +3,7 @@
 Haskell bindings for the [MPI standard](https://www.mpi-forum.org).
 
 [![Build Status](https://travis-ci.org/eschnett/haskell-mpi.svg?branch=master)](https://travis-ci.org/eschnett/haskell-mpi)
+[![CircleCI](https://circleci.com/gh/eschnett/haskell-mpi.svg?style=svg)](https://circleci.com/gh/eschnett/haskell-mpi)
 
 ## How to build
 
