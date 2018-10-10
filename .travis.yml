@@ -2,7 +2,7 @@ language: haskell
 os:
   - linux
   # - osx
-addons:
+ addons:
   apt:
     packages:
       - c2hs
