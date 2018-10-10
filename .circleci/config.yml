@@ -13,8 +13,8 @@ jobs:
       - run: stack init
       - run: |
           {
-            echo 'extra-include-dirs: [/opt/local/include/openmpi-mp]'
-            echo 'extra-lib-dirs: [/opt/local/lib/openmpi-mp]'
+            echo 'extra-include-dirs: [/usr/lib/openmpi/include]'
+            echo 'extra-lib-dirs: [/usr/lib/openmpi/lib]'
           } >> stack.yaml
       - run: stack build --test --only-dependencies --no-terminal --system-ghc
       - save_cache:
