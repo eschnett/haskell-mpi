@@ -13,6 +13,7 @@ jobs:
       - run: stack init
       - run: |
           {
+            echo
             echo 'extra-include-dirs: [/usr/lib/openmpi/include]'
             echo 'extra-lib-dirs: [/usr/lib/openmpi/lib]'
           } >> stack.yaml
